@@ -26,7 +26,3 @@ export const login = (email, password) => {
     return axios.post(`${BASE_URL}/api/user/login/`, {email, password})
 }
 
-export const register = (user) => {
-    console.log(user);
-    return axios.post(`${BASE_URL}/api/user/register/`, user);
-}
