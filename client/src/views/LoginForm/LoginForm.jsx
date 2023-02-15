@@ -14,7 +14,7 @@ export default function LoginComponent(props){
         login(user, password)
             .then((response) => {
                 localStorage.setItem("token", response.data.token);
-                navigate("/user_list")
+                navigate("/user/list")
             })
             .catch((error) => {
                 Swal.fire({

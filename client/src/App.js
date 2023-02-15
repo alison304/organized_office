@@ -13,8 +13,8 @@ function App() {
           <Route path='/' element={<PageInit />}/>
           <Route path='/login' element={<LoginForm/>}/>
           <Route path='/register' element={<RegisterForm/>}/>
-          {/* <Route path='/users/:id' element={<RegisterForm/>}/>                                         */}
-          <Route path='/user_list' element={<FormList/>}/>
+          <Route path='/user/:id' element={<RegisterForm/>}/>                                         */}
+          <Route path='/user/list' element={<FormList/>}/>
         </Routes>
       </BrowserRouter>
     </div>
