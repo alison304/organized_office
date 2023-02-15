@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { removeUser, getUserList } from "../../services/user.service";
 import { Box } from '@mui/material';
-import { Button, Table } from 'antd';
+import { Space, Button, Table } from 'antd';
 import "./formlist.css"
 
 const FormList = (props) => {
@@ -45,6 +45,16 @@ const FormList = (props) => {
         title: 'País',
         dataIndex: 'country',
         key: 'country',
+      },      
+      {
+        title: 'Action',
+        key: 'action',
+        render: (_, record) => (
+          <Space size="middle">
+            <Link to={`/user/${record._id}`}>details</Link><span>&nbsp;&nbsp;</span>|<span>&nbsp;&nbsp;</span>
+            <Link onClick={() => removeUserFromService(record._id)}>delete</Link>            
+          </Space>
+        ),
       },      
     ];
     

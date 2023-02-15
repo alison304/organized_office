@@ -45,6 +45,13 @@ export default function RegisterComponent(props){
             register(newUser)
                 .then((response) => {
                     console.log(response.data);
+                    Swal.fire({
+                        icon: 'success',
+                        title: response.data.message,
+                        text: "",
+                    }).then((result) => {
+                        navigate("/login");
+                      });
                 })
                 .catch((err) => {
                     console.log(err);
