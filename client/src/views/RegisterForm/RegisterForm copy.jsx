@@ -182,23 +182,23 @@ const RegisterComponent = (props) => {
 
     return (
         <React.Fragment>
-            <Grid container spacing={3}>
+            <Grid container spacing={2}>
                 <Grid item xs={2}>
                     <Box display="flex" justifyContent="flex-start">
                         <img className='img' src="https://images.pexels.com/photos/4144832/pexels-photo-4144832.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="imagen" />
                     </Box>
                 </Grid>
-                <Formik
-                    enableReinitialize
-                    initialValues={user}
-                    validationSchema={userSchema}
-                    onSubmit={sendNewUser}
-                >
-                    <Grid item xs={10}>
+                <Grid item xs={10}>
+                    <Formik
+                        enableReinitialize
+                        initialValues={user}
+                        validationSchema={userSchema}
+                        onSubmit={sendNewUser}
+                    >
                     {({ errors, touched }) => (
                         <Form>                        
-                        <Grid container spacing={3}>
-                            <Grid item xs={5}>
+                        <Grid container spacing={2}>
+                            <Grid item xs={6}>
                                 <div className='registro'>
                                     <img className='img-reg' src="/assets/Logo/Organized_office.png" alt="logo" width="250" height="100" onClick={() => navigate("/")}/>
                                     <h1>REGISTRO</h1>
@@ -273,12 +273,6 @@ const RegisterComponent = (props) => {
                                     </div>
                                     <br/>
                             </div>
-                            <div>
-                                    <input className='submit' type="submit" value="Registrar" /><br/><br/>
-                                    <button className='cancel' onClick={() => navigate("/")}>Cancel</button>
-                                </div>
-                            </Grid>
-                            <Grid item xs={5}>
                             <div className="part-2">
                                 <div>
                                     <label id="my-radio-group">Genero</label>
@@ -293,11 +287,13 @@ const RegisterComponent = (props) => {
                                         </label>
                                     </div>
                                 </div>
-                                <div>
-                                    <label htmlFor="fecha">Fecha de nacimiento</label>
-                                    <DatePicker format={dateFormat} onChange={(date, dateString) => {console.log(date, dateString) }} />
-                                </div>
+                            <div>
+                                <label htmlFor="fecha">Fecha de nacimiento</label>
+                                <Space direction="vertical" size={12}>
+                                    <DatePicker format={dateFormat} />
+                                </Space>
                             </div>
+                        </div>
                         <div className='users'>
                             <h3>Datos de usuario</h3>
                             <br/>
@@ -333,13 +329,20 @@ const RegisterComponent = (props) => {
                                     <div>{errorsResponse.password2.message}</div>
                                 )}
                             </div>
-                        </div>
+                            </div>
+                                <div>
+                                    <input className='submit' type="submit" value="Registrar" /><br/><br/>
+                                    <button className='cancel' onClick={() => navigate("/")}>Cancel</button>
+                                </div>
+                            </Grid>
+                            <Grid item xs={6}>
+
                             </Grid>
                         </Grid>                  
-                    </Form>
+                        </Form>
                     )}                    
-                    </Grid>
-                </Formik>
+                    </Formik>
+                </Grid>
             </Grid>
         </React.Fragment>
     )

@@ -51,8 +51,8 @@ const FormList = (props) => {
         key: 'action',
         render: (_, record) => (
           <Space size="middle">
-            <Link to={`/user/${record._id}`}>details</Link><span>&nbsp;&nbsp;</span>|<span>&nbsp;&nbsp;</span>
-            <Link onClick={() => removeUserFromService(record._id)}>delete</Link>            
+            <Link to={`/user/${record._id}`}>Edit</Link><span>&nbsp;&nbsp;</span>|<span>&nbsp;&nbsp;</span>
+            <Link onClick={() => removeUserFromService(record._id)}>Delete</Link>            
           </Space>
         ),
       },      
