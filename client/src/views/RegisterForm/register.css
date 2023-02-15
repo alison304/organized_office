@@ -1,0 +1,40 @@
+.registro {
+    margin-top: 10px;
+    margin-left: 500px;
+}
+
+.submit {
+    margin-right: 20px;
+    width: 180px;
+    height: 35px;
+    border-radius: 5px;
+    border: 1px solid #9575cd;
+    font-size: 15px;
+    color: white;
+    background-color: #9575cd;
+}
+
+.cancel {
+    width: 180px;
+    height: 35px;
+    border-radius: 5px;
+    border: 1px solid #9575cd;
+    font-size: 17px;
+    color: white;
+    background-color: #9575cd;
+}
+
+.form-2 {
+    margin-top: 47%;
+    margin-left: 50px;
+}
+
+.users {
+    margin-top: 100px;
+    margin-left: 500px;
+}
+
+label {
+    font-weight: bold;
+    padding-right: 220px;
+}

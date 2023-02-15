@@ -1,0 +1,4 @@
+node_modules  
+
+# Ignora todos los  archivos que estén  en la carpeta node_modules;
+# Así no se suben al repositorio y no pesa tanto el proyecto.
