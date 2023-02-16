@@ -145,7 +145,11 @@ const RegisterComponent = (props) => {
                                     <Grid item xs={6}>
                                         <div className='registro'>
                                             <img className='img-reg' src="/assets/Logo/Organized_office.png" alt="logo" width="250" height="100" onClick={() => navigate("/")} />
-                                            <h1>REGISTRO</h1>
+                                            {id ? (
+                                                <h3>Actualizar {user.name}</h3>
+                                            ) : (
+                                                <h3>Registrar</h3>
+                                            )}
                                             <br />
                                             <p>📋Vamos a preparar todo para que pueda verificar su cuenta personal y comenzar a configurar su perfil</p>
                                             <h3>Datos personales</h3>
