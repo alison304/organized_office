@@ -29,6 +29,7 @@ const RegisterComponent = (props) => {
     const getOneUserFromService = async () => {
         try {
             const data = await getOneUser(id);
+            data.data.user.password2 = data.data.user.password;
             setUser(data.data.user);
 
         } catch (error) {
