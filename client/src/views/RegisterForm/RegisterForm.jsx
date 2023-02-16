@@ -20,7 +20,7 @@ const RegisterComponent = (props) => {
         phone: '',
         address: '',
         country: '',
-        picked: '',
+        birthdate: '',
         email: '',
         password: '',
         password2: '',
@@ -45,7 +45,7 @@ const RegisterComponent = (props) => {
             const data = await getOneUser(id);
             setUser(data.data.user);
 
-        } catch(error) {
+        } catch (error) {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -67,26 +67,24 @@ const RegisterComponent = (props) => {
             .min(3, 'Too Short!')
             .required("Required lastname"),
         age: Yup.string()
-            .min(3, 'Too Short!')        
-            .required("Required age"),            
+            .min(1, 'Too Short!')
+            .required("Required age"),
         phone: Yup.string()
-            .min(8, 'Too Short!')        
+            .min(8, 'Too Short!')
             .required("Required phone"),
         address: Yup.string()
             .optional(),
         country: Yup.string()
-            .min(3, 'Too Short!')        
+            .min(3, 'Too Short!')
             .required("Required country"),
-        picked: Yup.string()
-            .optional(),
         email: Yup.string()
-            .min(3, 'Too Short!')        
-            .required("Required email"),            
+            .min(3, 'Too Short!')
+            .required("Required email"),
         password: Yup.string()
-            .min(3, 'Too Short!')        
+            .min(3, 'Too Short!')
             .required("Required password"),
         password2: Yup.string()
-            .min(3, 'Too Short!')        
+            .min(3, 'Too Short!')
             .required("Required confirm password"),
     });
 
@@ -102,32 +100,44 @@ const RegisterComponent = (props) => {
             }
             else {
                 id ? await updateUser(id, user)
-                .then((response) => {
-                    Swal.fire({
-                        icon: 'success',
-                        title: response.data.message,
-                        text: "",
-                    }).then((result) => {
-                        navigate("/login");
-                    });
-                })
-                .catch((err) => {
-                    console.log(err);
-                }) 
-                : 
-                await createUser(user);
-            }                        
+                    .then((response) => {
+                        Swal.fire({
+                            icon: 'success',
+                            title: response.data.message,
+                            text: "",
+                        }).then((result) => {
+                            navigate("/user/list");
+                        });
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    })
+                    :
+                    await createUser(user)
+                        .then((response) => {
+                            Swal.fire({
+                                icon: 'success',
+                                title: response.data.message,
+                                text: "",
+                            }).then((result) => {
+                                navigate("/login");
+                            });
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        })
+            }
         }
         catch (error) {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: error.response.data.error,
-            });            
+            });
             setErrorsResponse(error.response.data.error.errors);
         }
-    };    
-    
+    };
+
 
 
     // const submitForm = (event) => {
@@ -177,169 +187,155 @@ const RegisterComponent = (props) => {
     //         password2: '',
     //     });
     //     const [errorsResponse, setErrorsResponse] = useState();
-        
+
 
 
     return (
         <React.Fragment>
-            <Grid container spacing={3}>
+            <Grid container spacing={2}>
                 <Grid item xs={2}>
                     <Box display="flex" justifyContent="flex-start">
                         <img className='img' src="https://images.pexels.com/photos/4144832/pexels-photo-4144832.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="imagen" />
                     </Box>
                 </Grid>
-                <Formik
-                    enableReinitialize
-                    initialValues={user}
-                    validationSchema={userSchema}
-                    onSubmit={sendNewUser}
-                >
-                    <Grid item xs={10}>
-                    {({ errors, touched }) => (
-                        <Form>                        
-                        <Grid container spacing={3}>
-                            <Grid item xs={5}>
-                                <div className='registro'>
-                                    <img className='img-reg' src="/assets/Logo/Organized_office.png" alt="logo" width="250" height="100" onClick={() => navigate("/")}/>
-                                    <h1>REGISTRO</h1>
-                                    <br/>
-                                    <p>📋Vamos a preparar todo para que pueda verificar su cuenta personal y comenzar a configurar su perfil</p>
-                                    <h3>Datos personales</h3>
-                                    <br/>
-                                    <div>                
-                                        <label htmlFor="name">Nombres</label>
-                                        <Field name="name" />
-                                        {errors.name && touched.name ? (
-                                            <div>{errors.name}</div>
-                                        ) : null}
-                                        {errorsResponse?.name && (
-                                            <div>{errorsResponse.name.message}</div>
-                                        )}
-                                    </div>
-                                    <br/>
-                                    <div>
-                                        <label htmlFor="lastName">Apellidos</label>
-                                        <Field name="lastName" />
-                                        {errors.lastName && touched.lastName ? (
-                                            <div>{errors.lastName}</div>
-                                        ) : null}
-                                        {errorsResponse?.lastName && (
-                                            <div>{errorsResponse.lastName.message}</div>
-                                        )}
-                                    </div>
-                                    <br/>
-                                    <div>
-                                        <label htmlFor="age">Edad</label>
-                                        <Field name="age" />
-                                        {errors.age && touched.age ? (
-                                            <div>{errors.age}</div>
-                                        ) : null}
-                                        {errorsResponse?.age && (
-                                            <div>{errorsResponse.age.message}</div>
-                                        )}
-                                    </div>
-                                    <br/>
-                                    <div>
-                                        <label htmlFor="">Celular</label><br/>
-                                        <Field name="phone" />
-                                        {errors.phone && touched.phone ? (
-                                            <div>{errors.phone}</div>
-                                        ) : null}
-                                        {errorsResponse?.phone && (
-                                            <div>{errorsResponse.phone.message}</div>
-                                        )}
-                                    </div>
-                                    <br/>
-                                    <div>
-                                        <label htmlFor="address">Dirección </label><br/>
-                                        <Field name="address" />
-                                        {errors.address && touched.address ? (
-                                            <div>{errors.address}</div>
-                                        ) : null}
-                                        {errorsResponse?.address && (
-                                            <div>{errorsResponse.address.message}</div>
-                                        )}
-                                    </div>
-                                    <br/>
-                                    <div>
-                                        <label htmlFor="country">País </label><br/>
-                                        <Field name="country" />
-                                        {errors.country && touched.country ? (
-                                            <div>{errors.country}</div>
-                                        ) : null}
-                                        {errorsResponse?.country && (
-                                            <div>{errorsResponse.country.message}</div>
-                                        )}
-                                    </div>
-                                    <br/>
-                            </div>
-                            <div>
-                                    <input className='submit' type="submit" value="Registrar" /><br/><br/>
-                                    <button className='cancel' onClick={() => navigate("/")}>Cancel</button>
-                                </div>
-                            </Grid>
-                            <Grid item xs={5}>
-                            <div className="part-2">
-                                <div>
-                                    <label id="my-radio-group">Genero</label>
-                                    <div role="group" aria-labelledby="my-radio-group">
-                                        <label>
-                                        <Field type="radio" name="picked" value="Fem" />
-                                        Femenino
-                                        </label>
-                                        <label>
-                                        <Field type="radio" name="picked" value="Masc" />
-                                        Masculino
-                                        </label>
-                                    </div>
-                                </div>
-                                <div>
-                                    <label htmlFor="fecha">Fecha de nacimiento</label>
-                                    <DatePicker format={dateFormat} onChange={(date, dateString) => {console.log(date, dateString) }} />
-                                </div>
-                            </div>
-                        <div className='users'>
-                            <h3>Datos de usuario</h3>
-                            <br/>
-                            <div>
-                                <label htmlFor="email">Email</label>
-                                <Field name="email" />
-                                {errors.email && touched.email ? (
-                                    <div>{errors.email}</div>
-                                ) : null}
-                                {errorsResponse?.email && (
-                                    <div>{errorsResponse.email.message}</div>
-                                )}
-                            </div>
-                            <br/>
-                            <div>
-                                <label htmlFor="password">Password</label>
-                                <Field name="password" />
-                                {errors.password && touched.password ? (
-                                    <div>{errors.password}</div>
-                                ) : null}
-                                {errorsResponse?.password && (
-                                    <div>{errorsResponse.password.message}</div>
-                                )}
-                            </div>
-                            <br/>
-                            <div>
-                                <label htmlFor="password2">Confirmar Password</label>
-                                <Field name="password2" />
-                                {errors.password2 && touched.password2 ? (
-                                    <div>{errors.password2}</div>
-                                ) : null}
-                                {errorsResponse?.password2 && (
-                                    <div>{errorsResponse.password2.message}</div>
-                                )}
-                            </div>
-                        </div>
-                            </Grid>
-                        </Grid>                  
-                    </Form>
-                    )}                    
-                    </Grid>
-                </Formik>
+                <Grid item xs={10}>
+                    <Formik
+                        enableReinitialize
+                        initialValues={user}
+                        validationSchema={userSchema}
+                        onSubmit={sendNewUser}
+                    >
+                        {({ errors, touched, setFieldValue }) => (
+                            <Form>
+                                <Grid container spacing={2}>
+                                    <Grid item xs={6}>
+                                        <div className='registro'>
+                                            <img className='img-reg' src="/assets/Logo/Organized_office.png" alt="logo" width="250" height="100" onClick={() => navigate("/")} />
+                                            <h1>REGISTRO</h1>
+                                            <br />
+                                            <p>📋Vamos a preparar todo para que pueda verificar su cuenta personal y comenzar a configurar su perfil</p>
+                                            <h3>Datos personales</h3>
+                                            <br />
+                                            <div>
+                                                <label htmlFor="name">Nombres</label>
+                                                <Field name="name" />
+                                                {errors.name && touched.name ? (
+                                                    <div>{errors.name}</div>
+                                                ) : null}
+                                                {errorsResponse?.name && (
+                                                    <div>{errorsResponse.name.message}</div>
+                                                )}
+                                            </div>
+                                            <br />
+                                            <div>
+                                                <label htmlFor="lastName">Apellidos</label>
+                                                <Field name="lastName" />
+                                                {errors.lastName && touched.lastName ? (
+                                                    <div>{errors.lastName}</div>
+                                                ) : null}
+                                                {errorsResponse?.lastName && (
+                                                    <div>{errorsResponse.lastName.message}</div>
+                                                )}
+                                            </div>
+                                            <br />
+                                            <div>
+                                                <label htmlFor="age">Edad</label>
+                                                <Field name="age" />
+                                                {errors.age && touched.age ? (
+                                                    <div>{errors.age}</div>
+                                                ) : null}
+                                                {errorsResponse?.age && (
+                                                    <div>{errorsResponse.age.message}</div>
+                                                )}
+                                            </div>
+                                            <br />
+                                            <div>
+                                                <label htmlFor="">Celular</label><br />
+                                                <Field name="phone" />
+                                                {errors.phone && touched.phone ? (
+                                                    <div>{errors.phone}</div>
+                                                ) : null}
+                                                {errorsResponse?.phone && (
+                                                    <div>{errorsResponse.phone.message}</div>
+                                                )}
+                                            </div>
+                                            <br />
+                                            <div>
+                                                <label htmlFor="address">Dirección </label><br />
+                                                <Field name="address" />
+                                                {errors.address && touched.address ? (
+                                                    <div>{errors.address}</div>
+                                                ) : null}
+                                                {errorsResponse?.address && (
+                                                    <div>{errorsResponse.address.message}</div>
+                                                )}
+                                            </div>
+                                            <br />
+                                            <div>
+                                                <label htmlFor="country">País </label><br />
+                                                <Field name="country" />
+                                                {errors.country && touched.country ? (
+                                                    <div>{errors.country}</div>
+                                                ) : null}
+                                                {errorsResponse?.country && (
+                                                    <div>{errorsResponse.country.message}</div>
+                                                )}
+                                            </div>
+                                            <br />
+                                            <div>
+                                                <label htmlFor="fecha">Fecha de nacimiento</label>
+                                                <Space direction="vertical" size={12}>
+                                                    <DatePicker name="birthdate" format={dateFormat} onChange={(date) => setFieldValue("birthdate", date)} />
+                                                </Space>
+                                            </div>
+                                        </div>
+                                        <div className='users'>
+                                            <h3>Datos de usuario</h3>
+                                            <br />
+                                            <div>
+                                                <label htmlFor="email">Email</label>
+                                                <Field name="email" />
+                                                {errors.email && touched.email ? (
+                                                    <div>{errors.email}</div>
+                                                ) : null}
+                                                {errorsResponse?.email && (
+                                                    <div>{errorsResponse.email.message}</div>
+                                                )}
+                                            </div>
+                                            <br />
+                                            <div>
+                                                <label htmlFor="password">Password</label>
+                                                <Field name="password" />
+                                                {errors.password && touched.password ? (
+                                                    <div>{errors.password}</div>
+                                                ) : null}
+                                                {errorsResponse?.password && (
+                                                    <div>{errorsResponse.password.message}</div>
+                                                )}
+                                            </div>
+                                            <br />
+                                            <div>
+                                                <label htmlFor="password2">Confirmar Password</label>
+                                                <Field name="password2" />
+                                                {errors.password2 && touched.password2 ? (
+                                                    <div>{errors.password2}</div>
+                                                ) : null}
+                                                {errorsResponse?.password2 && (
+                                                    <div>{errorsResponse.password2.message}</div>
+                                                )}
+                                            </div>
+                                            <br />
+                                            <input className='submit' type="submit" value="Registrar" /><br /><br />
+                                            <button className='cancel' onClick={() => navigate("/")}>Cancel</button>
+                                        </div>
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                    </Grid>
+                                </Grid>
+                            </Form>
+                        )}
+                    </Formik>
+                </Grid>
             </Grid>
         </React.Fragment>
     )
