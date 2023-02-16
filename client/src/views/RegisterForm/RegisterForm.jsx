@@ -325,7 +325,14 @@ const RegisterComponent = (props) => {
                                                 )}
                                             </div>
                                             <br />
-                                            <input className='submit' type="submit" value="Registrar" /><br /><br />
+                                            <br />
+                                            {id ? (
+                                                <input className='submit' type="submit" value="Actualizar" />
+                                            ) : (
+                                                <input className='submit' type="submit" value="Registrar" />
+                                            )}
+
+                                            <br /><br />
                                             <button className='cancel' onClick={() => navigate("/")}>Cancel</button>
                                         </div>
                                     </Grid>
