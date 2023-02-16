@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import dayjs from 'dayjs';
-import { createUser, updateUser } from "../../services/user.service";
+import { createUser, getOneUser, updateUser } from "../../services/user.service";
 import { useParams, useNavigate } from "react-router-dom";
 import { Box, Grid } from '@mui/material';
 import { DatePicker, Space } from 'antd';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import { getOneUser } from "../../services/user.service";
 import Swal from "sweetalert2";
 import "./register.css"
 
@@ -27,18 +25,6 @@ const RegisterComponent = (props) => {
     });
     const [errorsResponse, setErrorsResponse] = useState();
     const dateFormat = 'YYYY/MM/DD';
-
-    // const [password, setPassword] = useState("");
-    // const [password2, setPassword2] = useState("");
-    // const [name, setName] = useState("");
-    // const [lastName, setLastName] = useState("");
-    // const [age, setAge] = useState("");
-    // const [phone, setPhone] = useState("");
-    // const [address, setAddress] = useState("");
-    // const [country, setCountry] = useState("");
-    // const [gender, setGender] = useState("");
-    // const [email, setEmail] = useState("");
-    // const [value, setValue] = React.useState(null);
 
     const getOneUserFromService = async () => {
         try {
@@ -137,58 +123,6 @@ const RegisterComponent = (props) => {
             setErrorsResponse(error.response.data.error.errors);
         }
     };
-
-
-
-    // const submitForm = (event) => {
-    //     event.preventDefault();
-    //     let newUser = {
-    //         name: name,
-    //         lastName: lastName,
-    //         age: Number(age),
-    //         phone: phone,
-    //         address: address,
-    //         country: country,
-    //         email: email,
-    //         password: password
-    //     }
-    //     if (password !== password2)
-    //         console.log("Las passwords no son iguales")
-    //     else {
-    //         console.log(newUser);            
-    //         register(newUser)
-    //             .then((response) => {
-    //                 console.log(response.data);
-    //                 Swal.fire({
-    //                     icon: 'success',
-    //                     title: response.data.message,
-    //                     text: "",
-    //                 }).then((result) => {
-    //                     navigate("/login");
-    //                   });
-    //             })
-    //             .catch((err) => {
-    //                 console.log(err);
-    //             })
-    //     }
-    // }
-
-
-
-    // const RegisterForm = () => {
-    //     const { id } = useParams();
-    //     const [register, setRegister] = useState({
-    //         name: '',
-    //         lastName: '',
-    //         age: '',
-    //         phone: '',
-    //         email: '',
-    //         password: '',
-    //         password2: '',
-    //     });
-    //     const [errorsResponse, setErrorsResponse] = useState();
-
-
 
     return (
         <React.Fragment>
