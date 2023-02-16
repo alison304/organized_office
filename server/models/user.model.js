@@ -28,6 +28,10 @@ const userSchema = new Schema({
         type: String,
         required: [false, 'Debes ingresar tu pais'],
     },
+    birthdate: {
+        type: Date,
+        required: [false, 'Debes ingresar una fecha'],
+    },    
     email: {
         type: String,
         required: [false, 'Debes ingresar tu email'],
