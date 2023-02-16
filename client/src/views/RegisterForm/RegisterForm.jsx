@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { createUser, getOneUser, updateUser } from "../../services/user.service";
 import { useParams, useNavigate } from "react-router-dom";
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, Button } from '@mui/material';
 import { DatePicker, Space } from 'antd';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
@@ -265,13 +265,14 @@ const RegisterComponent = (props) => {
                                             <br />
                                             <br />
                                             {id ? (
-                                                <input className='submit' type="submit" value="Actualizar" />
+                                                <Button className='submit' onClick={() => sendNewUser(user)}>Actualizar</Button>
+
                                             ) : (
-                                                <input className='submit' type="submit" value="Registrar" />
+                                                <Button className='submit' type="submit">Registrar</Button>
                                             )}
 
                                             <br /><br />
-                                            <button className='cancel' onClick={() => navigate("/")}>Cancel</button>
+                                            <Button className='cancel' onClick={() => navigate("/")}>Cancel</Button>
                                         </div>
                                     </Grid>
                                     <Grid item xs={6}>
