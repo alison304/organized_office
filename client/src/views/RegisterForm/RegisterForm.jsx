@@ -9,9 +9,9 @@ import Swal from "sweetalert2";
 import "./register.css"
 
 const RegisterComponent = (props) => {
+    const dateFormat = 'yyyy-MM-dd';
     const { id } = useParams();
     const navigate = useNavigate();
-    const dateFormat = 'yyyy-MM-dd';
     const [user, setUser] = useState({
         name: '',
         lastName: '',
@@ -135,7 +135,7 @@ const RegisterComponent = (props) => {
                 </Grid>
                 <Grid item xs={10}>
                     <Formik
-                        enableReinitialize
+                        enableReinitialize={true}
                         initialValues={user}
                         validationSchema={userSchema}
                         onSubmit={sendNewUser}
