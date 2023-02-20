@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { createUser, getOneUser, updateUser } from "../../services/user.service";
 import { useParams, useNavigate } from "react-router-dom";
 import { Box, Grid, Button } from '@mui/material';
-import DatePicker from "react-datepicker";
+import DatePicker from "react-date-picker";
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import Swal from "sweetalert2";
@@ -224,9 +224,9 @@ const RegisterComponent = () => {
                                             <div>
                                                 <label htmlFor="fecha">Fecha de nacimiento</label>
                                                 <DatePicker
-                                                    selected={values.birthdate}
+                                                    value={values.birthdate}
                                                     name="birthdate"
-                                                    dateFormat={dateFormat}
+                                                    format={dateFormat}
                                                     onChange={(date) => setFieldValue("birthdate", date)}
                                                 />
                                             </div>
