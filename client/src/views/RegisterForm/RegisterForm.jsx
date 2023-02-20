@@ -8,7 +8,7 @@ import * as Yup from 'yup';
 import Swal from "sweetalert2";
 import "./register.css"
 
-const RegisterComponent = (props) => {
+const RegisterComponent = () => {
     const dateFormat = 'yyyy-MM-dd';
     const { id } = useParams();
     const navigate = useNavigate();
@@ -269,7 +269,7 @@ const RegisterComponent = (props) => {
                                             <br />
                                             <br />
                                             {id ? (
-                                                <Button variant="contained" sx={{ backgroundColor: '#9575cd', display: 'inline', fontSize: 14 }} className='btn-c' onClick={() => sendNewUser(user)}>Actualizar</Button>
+                                                <Button variant="contained" sx={{ backgroundColor: '#9575cd', display: 'inline', fontSize: 14 }} className='btn-c' type="submit">Actualizar</Button>
 
                                             ) : (
                                                 <Button variant="contained" sx={{ backgroundColor: '#9575cd', display: 'inline', fontSize: 14 }} className='btn-c' type="submit">Registrar</Button>
