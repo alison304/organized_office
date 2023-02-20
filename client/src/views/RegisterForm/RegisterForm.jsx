@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { createUser, getOneUser, updateUser } from "../../services/user.service";
 import { useParams, useNavigate } from "react-router-dom";
 import { Box, Grid, Button } from '@mui/material';
-import { DatePicker, Space } from 'antd';
+import DatePicker from "react-datepicker";
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import Swal from "sweetalert2";
@@ -11,6 +11,7 @@ import "./register.css"
 const RegisterComponent = (props) => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const dateFormat = 'yyyy-MM-dd';
     const [user, setUser] = useState({
         name: '',
         lastName: '',
@@ -18,20 +19,19 @@ const RegisterComponent = (props) => {
         phone: '',
         address: '',
         country: '',
-        birthdate: '',
+        birthdate: new Date(),
         email: '',
         password: '',
         password2: '',
     });
     const [errorsResponse, setErrorsResponse] = useState();
-    const dateFormat = 'YYYY/MM/DD';
 
     const getOneUserFromService = async () => {
         try {
             const data = await getOneUser(id);
+            data.data.user.birthdate = new Date(data.data.user.birthdate);
             data.data.user.password2 = data.data.user.password;
             setUser(data.data.user);
-
         } catch (error) {
             Swal.fire({
                 icon: 'error',
@@ -130,7 +130,7 @@ const RegisterComponent = (props) => {
             <Grid container spacing={2}>
                 <Grid item xs={2}>
                     <Box display="flex" justifyContent="flex-start">
-                        <img className='img' src="https://images.pexels.com/photos/4144832/pexels-photo-4144832.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="imagen" />
+                        <img className='img-regist' src="https://images.pexels.com/photos/4144832/pexels-photo-4144832.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="imagen" />
                     </Box>
                 </Grid>
                 <Grid item xs={10}>
@@ -140,7 +140,7 @@ const RegisterComponent = (props) => {
                         validationSchema={userSchema}
                         onSubmit={sendNewUser}
                     >
-                        {({ errors, touched, setFieldValue }) => (
+                        {({ values, errors, touched, setFieldValue }) => (
                             <Form>
                                 <Grid container spacing={2}>
                                     <Grid item xs={6}>
@@ -223,9 +223,12 @@ const RegisterComponent = (props) => {
                                             <br />
                                             <div>
                                                 <label htmlFor="fecha">Fecha de nacimiento</label>
-                                                <Space direction="vertical" size={12}>
-                                                    <DatePicker name="birthdate" format={dateFormat} onChange={(date) => setFieldValue("birthdate", date)} />
-                                                </Space>
+                                                <DatePicker
+                                                    selected={values.birthdate}
+                                                    name="birthdate"
+                                                    dateFormat={dateFormat}
+                                                    onChange={(date) => setFieldValue("birthdate", date)}
+                                                />
                                             </div>
                                         </div>
                                         <div className='users'>
@@ -266,14 +269,20 @@ const RegisterComponent = (props) => {
                                             <br />
                                             <br />
                                             {id ? (
-                                                <Button className='submit' onClick={() => sendNewUser(user)}>Actualizar</Button>
+                                                <Button variant="contained" sx={{ backgroundColor: '#9575cd', display: 'inline', fontSize: 14 }} className='btn-c' onClick={() => sendNewUser(user)}>Actualizar</Button>
 
                                             ) : (
-                                                <Button className='submit' type="submit">Registrar</Button>
+                                                <Button variant="contained" sx={{ backgroundColor: '#9575cd', display: 'inline', fontSize: 14 }} className='btn-c' type="submit">Registrar</Button>
                                             )}
 
                                             <br /><br />
-                                            <Button className='cancel' onClick={() => navigate("/")}>Cancel</Button>
+                                            {id ? (
+                                                <Button variant="contained" sx={{ backgroundColor: '#9575cd', display: 'inline', fontSize: 14 }} className='btn-c' onClick={() => navigate("/user/list")}>Cancel</Button>
+
+                                            ) : (
+                                                <Button variant="contained" sx={{ backgroundColor: '#9575cd', display: 'inline', fontSize: 14 }} className='btn-c' onClick={() => navigate("/")}>Cancel</Button>
+                                            )}
+
                                         </div>
                                     </Grid>
                                     <Grid item xs={6}>

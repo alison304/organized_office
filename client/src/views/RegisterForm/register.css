@@ -14,14 +14,9 @@
     background-color: #9575cd;
 }
 
-.cancel {
-    width: 180px;
+.btn-c {
+    width: 200px;
     height: 35px;
-    border-radius: 5px;
-    border: 1px solid #9575cd;
-    font-size: 17px;
-    color: white;
-    background-color: #9575cd;
 }
 
 .form-2 {
@@ -30,11 +25,16 @@
 }
 
 .users {
-    margin-top: 100px;
+    margin-top: 18px;
     margin-left: 500px;
 }
 
 label {
     font-weight: bold;
     padding-right: 220px;
+}
+
+.img-regist {
+    width: 82vh;
+    height: 157vh;
 }

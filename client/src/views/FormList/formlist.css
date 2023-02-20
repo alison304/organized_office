@@ -3,3 +3,15 @@
     margin-left: 30px;
     margin-right: 30px;
 }
+
+.btn-home {
+    margin-right: 20px;
+    width: 180px;
+    height: 35px;
+    border-radius: 5px;
+    border: 1px solid #9575cd;
+    font-size: 15px;
+    color: white;
+    background-color: #50249b;
+}
+

@@ -31,7 +31,7 @@ export default function LoginComponent(props){
             <Grid container spacing={2}>
                 <Grid item xs={4}>
                     <Box display="flex" justifyContent="flex-start">
-                        <img className="img" src="https://images.pexels.com/photos/1181325/pexels-photo-1181325.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="login" />
+                        <img className="img-login" src="https://images.pexels.com/photos/1181325/pexels-photo-1181325.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="login" />
                     </Box>
                 </Grid>
                 <Grid item xs={8}>
