@@ -1,12 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { createUser, getOneUser, updateUser } from "../../services/user.service";
 import { useParams, useNavigate } from "react-router-dom";
-import { Box, Grid, Button } from '@mui/material';
+import { Box, Grid, Paper, Button, Typography } from '@mui/material';
 import DatePicker from "react-date-picker";
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import Swal from "sweetalert2";
-import "./register.css"
+import "./register.css";
+import { styled } from '@mui/material/styles';
+
+const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+}));
 
 const RegisterComponent = () => {
     const dateFormat = 'yyyy-MM-dd';
@@ -127,36 +136,36 @@ const RegisterComponent = () => {
 
     return (
         <React.Fragment>
-            <Grid container spacing={2}>
-                <Grid item xs={2}>
-                    <Box display="flex" justifyContent="flex-start">
-                        <img className='img-regist' src="https://images.pexels.com/photos/4144832/pexels-photo-4144832.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="imagen" />
-                    </Box>
-                </Grid>
-                <Grid item xs={10}>
-                    <Formik
-                        enableReinitialize={true}
-                        initialValues={user}
-                        validationSchema={userSchema}
-                        onSubmit={sendNewUser}
-                    >
-                        {({ values, errors, touched, setFieldValue }) => (
-                            <Form>
-                                <Grid container spacing={2}>
-                                    <Grid item xs={6}>
-                                        <div className='registro'>
-                                            <img className='img-reg' src="/assets/Logo/Organized_office.png" alt="logo" width="250" height="100" onClick={() => navigate("/")} />
-                                            {id ? (
-                                                <h3>Actualizar {user.name}</h3>
-                                            ) : (
-                                                <h3>Registrar</h3>
-                                            )}
-                                            <br />
-                                            <p>📋Vamos a preparar todo para que pueda verificar su cuenta personal y comenzar a configurar su perfil</p>
+            <Formik
+                enableReinitialize={true}
+                initialValues={user}
+                validationSchema={userSchema}
+                onSubmit={sendNewUser}
+            >
+                {({ values, errors, touched, setFieldValue }) => (
+                    <Form>
+                        <Grid container>
+                            <Grid direction="column" item xs={2}>
+                                <Box display="flex" justifyContent="flex-start">
+                                    <img className='img-regist' src="https://images.pexels.com/photos/4144832/pexels-photo-4144832.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="imagen" />
+                                </Box>
+                            </Grid>
+                            <Grid container direction="column" item xs={10}>
+                                <Box className='registro'>
+                                    <img className='img-reg' src="/assets/Logo/Organized_office.png" alt="logo" width="250" height="100" onClick={() => navigate("/")} />
+                                    {id ? (
+                                        <h3>Actualizar {user.name}</h3>
+                                    ) : (
+                                        <h3>Registrar</h3>
+                                    )}
+                                    <br />
+                                    <p>📋Vamos a preparar todo para que pueda verificar su cuenta personal y comenzar a configurar su perfil</p>
+                                    <div class='row'>
+                                        <div class='column'>
                                             <h3>Datos personales</h3>
                                             <br />
                                             <div>
-                                                <label htmlFor="name">Nombres</label>
+                                                <Typography>Nombres</Typography>
                                                 <Field name="name" />
                                                 {errors.name && touched.name ? (
                                                     <div>{errors.name}</div>
@@ -167,7 +176,7 @@ const RegisterComponent = () => {
                                             </div>
                                             <br />
                                             <div>
-                                                <label htmlFor="lastName">Apellidos</label>
+                                                <Typography>Apellidos</Typography>
                                                 <Field name="lastName" />
                                                 {errors.lastName && touched.lastName ? (
                                                     <div>{errors.lastName}</div>
@@ -178,7 +187,7 @@ const RegisterComponent = () => {
                                             </div>
                                             <br />
                                             <div>
-                                                <label htmlFor="age">Edad</label>
+                                                <Typography>Edad</Typography>
                                                 <Field name="age" />
                                                 {errors.age && touched.age ? (
                                                     <div>{errors.age}</div>
@@ -189,7 +198,7 @@ const RegisterComponent = () => {
                                             </div>
                                             <br />
                                             <div>
-                                                <label htmlFor="">Celular</label><br />
+                                                <Typography>Celular</Typography>
                                                 <Field name="phone" />
                                                 {errors.phone && touched.phone ? (
                                                     <div>{errors.phone}</div>
@@ -200,7 +209,7 @@ const RegisterComponent = () => {
                                             </div>
                                             <br />
                                             <div>
-                                                <label htmlFor="address">Dirección </label><br />
+                                                <Typography>Dirección </Typography>
                                                 <Field name="address" />
                                                 {errors.address && touched.address ? (
                                                     <div>{errors.address}</div>
@@ -211,7 +220,7 @@ const RegisterComponent = () => {
                                             </div>
                                             <br />
                                             <div>
-                                                <label htmlFor="country">País </label><br />
+                                                <Typography>País </Typography>
                                                 <Field name="country" />
                                                 {errors.country && touched.country ? (
                                                     <div>{errors.country}</div>
@@ -222,7 +231,7 @@ const RegisterComponent = () => {
                                             </div>
                                             <br />
                                             <div>
-                                                <label htmlFor="fecha">Fecha de nacimiento</label>
+                                                <Typography>Fecha de nacimiento</Typography>
                                                 <DatePicker
                                                     value={values.birthdate}
                                                     name="birthdate"
@@ -231,11 +240,11 @@ const RegisterComponent = () => {
                                                 />
                                             </div>
                                         </div>
-                                        <div className='users'>
+                                        <div class='column'>
                                             <h3>Datos de usuario</h3>
                                             <br />
                                             <div>
-                                                <label htmlFor="email">Email</label>
+                                                <Typography>Email</Typography>
                                                 <Field name="email" />
                                                 {errors.email && touched.email ? (
                                                     <div>{errors.email}</div>
@@ -246,7 +255,7 @@ const RegisterComponent = () => {
                                             </div>
                                             <br />
                                             <div>
-                                                <label htmlFor="password">Password</label>
+                                                <Typography>Password</Typography>
                                                 <Field name="password" />
                                                 {errors.password && touched.password ? (
                                                     <div>{errors.password}</div>
@@ -257,7 +266,7 @@ const RegisterComponent = () => {
                                             </div>
                                             <br />
                                             <div>
-                                                <label htmlFor="password2">Confirmar Password</label>
+                                                <Typography>Confirmar Password</Typography>
                                                 <Field name="password2" />
                                                 {errors.password2 && touched.password2 ? (
                                                     <div>{errors.password2}</div>
@@ -266,34 +275,33 @@ const RegisterComponent = () => {
                                                     <div>{errorsResponse.password2.message}</div>
                                                 )}
                                             </div>
-                                            <br />
-                                            <br />
-                                            {id ? (
-                                                <Button variant="contained" sx={{ backgroundColor: '#9575cd', display: 'inline', fontSize: 14 }} className='btn-c' type="submit">Actualizar</Button>
-
-                                            ) : (
-                                                <Button variant="contained" sx={{ backgroundColor: '#9575cd', display: 'inline', fontSize: 14 }} className='btn-c' type="submit">Registrar</Button>
-                                            )}
-
-                                            <br /><br />
-                                            {id ? (
-                                                <Button variant="contained" sx={{ backgroundColor: '#9575cd', display: 'inline', fontSize: 14 }} className='btn-c' onClick={() => navigate("/user/list")}>Cancel</Button>
-
-                                            ) : (
-                                                <Button variant="contained" sx={{ backgroundColor: '#9575cd', display: 'inline', fontSize: 14 }} className='btn-c' onClick={() => navigate("/")}>Cancel</Button>
-                                            )}
-
                                         </div>
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                    </Grid>
-                                </Grid>
-                            </Form>
-                        )}
-                    </Formik>
-                </Grid>
-            </Grid>
-        </React.Fragment>
+                                    </div>
+                                    <br />
+                                    <br />
+                                    {id ? (
+                                        <Button variant="contained" sx={{ backgroundColor: '#9575cd', display: 'inline', fontSize: 14 }} className='btn-c' type="submit">Actualizar</Button>
+
+                                    ) : (
+                                        <Button variant="contained" sx={{ backgroundColor: '#9575cd', display: 'inline', fontSize: 14 }} className='btn-c' type="submit">Registrar</Button>
+                                    )}
+
+                                    <br /><br />
+                                    {id ? (
+                                        <Button variant="contained" sx={{ backgroundColor: '#9575cd', display: 'inline', fontSize: 14 }} className='btn-c' onClick={() => navigate("/user/list")}>Cancel</Button>
+
+                                    ) : (
+                                        <Button variant="contained" sx={{ backgroundColor: '#9575cd', display: 'inline', fontSize: 14 }} className='btn-c' onClick={() => navigate("/")}>Cancel</Button>
+                                    )}
+                                </Box>
+                            </Grid>
+                        </Grid>
+                    </Form>
+                )
+                }
+            </Formik >
+        </React.Fragment >
+
     )
 }
 

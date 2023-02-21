@@ -35,6 +35,20 @@ label {
 }
 
 .img-regist {
-    width: 82vh;
-    height: 157vh;
+    width: 100vh;
+    height: 100vh;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    flex: 1;
 }
