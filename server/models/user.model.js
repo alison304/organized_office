@@ -15,6 +15,7 @@ const userSchema = new Schema({
     age: {
         type: Number,
         required: [true, 'Debes ingresar tu edad'],
+        min: [18, 'La edad minima permitida es de 18 años']
     },
     phone: {
         type: String,
@@ -34,8 +35,8 @@ const userSchema = new Schema({
     },    
     email: {
         type: String,
-        required: [false, 'Debes ingresar tu email'],
-        match: [ /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/, "Email inválido"],
+        required: [true, 'Debes ingresar tu email'],
+        match: [ /.+\@.+\..+/, "Email inválido"],
         unique: true,
     },
     password: {
