@@ -62,8 +62,8 @@ const RegisterComponent = () => {
         lastName: Yup.string()
             .min(3, 'Too Short!')
             .required("Required lastname"),
-        age: Yup.string()
-            .min(1, 'Too Short!')
+        age: Yup.number()
+            .min(18, 'Minimum age!')
             .required("Required age"),
         phone: Yup.string()
             .min(8, 'Too Short!')
@@ -77,10 +77,10 @@ const RegisterComponent = () => {
             .min(3, 'Too Short!')
             .required("Required email"),
         password: Yup.string()
-            .min(3, 'Too Short!')
-            .required("Required password"),
+            .min(6, 'Too Short!Password should be of minimum 6 characters length')
+            .required("Password is required"),
         password2: Yup.string()
-            .min(3, 'Too Short!')
+            .min(6, 'Too Short!')
             .required("Required confirm password"),
     });
 
@@ -159,13 +159,13 @@ const RegisterComponent = () => {
                                         <h3>Registrar</h3>
                                     )}
                                     <br />
-                                    <p>📋Vamos a preparar todo para que pueda verificar su cuenta personal y comenzar a configurar su perfil</p>
-                                    <div class='row'>
-                                        <div class='column'>
+                                    <p>📋Vamos a preparar todo para que pueda verificar su cuenta personal y comenzar a configurar su perfil.</p>
+                                    <div className='row'>
+                                        <div className='column'>
                                             <h3>Datos personales</h3>
                                             <br />
                                             <div>
-                                                <Typography>Nombres</Typography>
+                                                <label>Nombres</label>
                                                 <Field name="name" />
                                                 {errors.name && touched.name ? (
                                                     <div>{errors.name}</div>
@@ -176,7 +176,7 @@ const RegisterComponent = () => {
                                             </div>
                                             <br />
                                             <div>
-                                                <Typography>Apellidos</Typography>
+                                                <label>Apellidos</label>
                                                 <Field name="lastName" />
                                                 {errors.lastName && touched.lastName ? (
                                                     <div>{errors.lastName}</div>
@@ -187,7 +187,7 @@ const RegisterComponent = () => {
                                             </div>
                                             <br />
                                             <div>
-                                                <Typography>Edad</Typography>
+                                                <label>Edad</label>
                                                 <Field name="age" />
                                                 {errors.age && touched.age ? (
                                                     <div>{errors.age}</div>
@@ -198,7 +198,7 @@ const RegisterComponent = () => {
                                             </div>
                                             <br />
                                             <div>
-                                                <Typography>Celular</Typography>
+                                                <label>Celular</label>
                                                 <Field name="phone" />
                                                 {errors.phone && touched.phone ? (
                                                     <div>{errors.phone}</div>
@@ -209,7 +209,7 @@ const RegisterComponent = () => {
                                             </div>
                                             <br />
                                             <div>
-                                                <Typography>Dirección </Typography>
+                                                <label>Dirección </label>
                                                 <Field name="address" />
                                                 {errors.address && touched.address ? (
                                                     <div>{errors.address}</div>
@@ -220,7 +220,7 @@ const RegisterComponent = () => {
                                             </div>
                                             <br />
                                             <div>
-                                                <Typography>País </Typography>
+                                                <label>País </label>
                                                 <Field name="country" />
                                                 {errors.country && touched.country ? (
                                                     <div>{errors.country}</div>
@@ -231,7 +231,7 @@ const RegisterComponent = () => {
                                             </div>
                                             <br />
                                             <div>
-                                                <Typography>Fecha de nacimiento</Typography>
+                                                <label>Fecha de nacimiento</label>
                                                 <DatePicker
                                                     value={values.birthdate}
                                                     name="birthdate"
@@ -240,11 +240,11 @@ const RegisterComponent = () => {
                                                 />
                                             </div>
                                         </div>
-                                        <div class='column'>
+                                        <div className='column'>
                                             <h3>Datos de usuario</h3>
                                             <br />
                                             <div>
-                                                <Typography>Email</Typography>
+                                                <label>Email</label>
                                                 <Field name="email" />
                                                 {errors.email && touched.email ? (
                                                     <div>{errors.email}</div>
@@ -255,8 +255,8 @@ const RegisterComponent = () => {
                                             </div>
                                             <br />
                                             <div>
-                                                <Typography>Password</Typography>
-                                                <Field name="password" />
+                                                <label>Password</label>
+                                                <Field type="password" name="password" />
                                                 {errors.password && touched.password ? (
                                                     <div>{errors.password}</div>
                                                 ) : null}
@@ -266,8 +266,8 @@ const RegisterComponent = () => {
                                             </div>
                                             <br />
                                             <div>
-                                                <Typography>Confirmar Password</Typography>
-                                                <Field name="password2" />
+                                                <label>Confirmar Password</label>
+                                                <Field type="password" name="password2" />
                                                 {errors.password2 && touched.password2 ? (
                                                     <div>{errors.password2}</div>
                                                 ) : null}
@@ -285,7 +285,6 @@ const RegisterComponent = () => {
                                     ) : (
                                         <Button variant="contained" sx={{ backgroundColor: '#9575cd', display: 'inline', fontSize: 14 }} className='btn-c' type="submit">Registrar</Button>
                                     )}
-
                                     <br /><br />
                                     {id ? (
                                         <Button variant="contained" sx={{ backgroundColor: '#9575cd', display: 'inline', fontSize: 14 }} className='btn-c' onClick={() => navigate("/user/list")}>Cancel</Button>
