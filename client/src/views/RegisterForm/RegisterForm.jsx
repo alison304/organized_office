@@ -74,7 +74,7 @@ const RegisterComponent = () => {
             .min(3, 'Too Short!')
             .required("Required country"),
         email: Yup.string()
-            .min(3, 'Too Short!')
+            .email('Not a proper email')
             .required("Required email"),
         password: Yup.string()
             .min(6, 'Too Short!Password should be of minimum 6 characters length')
