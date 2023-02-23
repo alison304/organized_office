@@ -1,7 +1,7 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createUser, getOneUser, updateUser } from "../../services/user.service";
 import { useParams, useNavigate } from "react-router-dom";
-import { Box, Grid, Paper, Button, Typography } from '@mui/material';
+import { Box, Grid, Paper, Button } from '@mui/material';
 import DatePicker from "react-date-picker";
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
@@ -57,10 +57,11 @@ const RegisterComponent = () => {
     const userSchema = Yup.object().shape({
         name: Yup.string()
             .min(3, 'Too Short!')
-            .max(50, 'Too Long!')
+            .max(20, 'Too Long!')
             .required('Required name'),
         lastName: Yup.string()
             .min(3, 'Too Short!')
+            .max(20, 'Too Long!')
             .required("Required lastname"),
         age: Yup.number()
             .min(18, 'Minimum age!')
@@ -285,7 +286,7 @@ const RegisterComponent = () => {
                                     ) : (
                                         <Button variant="contained" sx={{ backgroundColor: '#9575cd', display: 'inline', fontSize: 14 }} className='btn-c' type="submit">Registrar</Button>
                                     )}
-                                    <br /><br />
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
                                     {id ? (
                                         <Button variant="contained" sx={{ backgroundColor: '#9575cd', display: 'inline', fontSize: 14 }} className='btn-c' onClick={() => navigate("/user/list")}>Cancel</Button>
 
