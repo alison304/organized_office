@@ -6,11 +6,13 @@ const userSchema = new Schema({
         type: String,
         required: [true, 'Debes ingresar un nombre de usuario'],
         minlength: [3, 'Debe ingresar al menos 4 caracteres'],
+        maxlength: [20, 'Too Long!'],
     },    
     lastName: {
         type: String,
         required: [true, 'Debes ingresar tus apellidos'],
         minlength: [3, 'Debe ingresar al menos 4 caracteres'],
+        maxlength: [20, 'Too Long!'],
     },
     age: {
         type: Number,
@@ -20,14 +22,17 @@ const userSchema = new Schema({
     phone: {
         type: String,
         required: [false, 'Debes ingresar tu numero de telefono'],
+        minlength: [8, 'Debe ingresar al menos 8 caracteres'],
     },
     address: {
         type: String,
-        required: [false, 'Debes ingresar tu direccion'],
+        required: [false, 'Debes ingresar tu dirección'],
+        maxlength: [20, 'Too Long!'],
     },
     country: {
         type: String,
-        required: [false, 'Debes ingresar tu pais'],
+        required: [false, 'Debes ingresar tu país'],
+        maxlength: [20, 'Too Long!'],
     },
     birthdate: {
         type: Date,
@@ -41,8 +46,12 @@ const userSchema = new Schema({
     },
     password: {
         type: String,
-        required: [false, 'Debes ingresar tu password'],
-    },        
+        required: [false, 'Debes ingresar tu contraseña'],
+    },
+    password2: {
+        type: String,
+        required: [false, 'Debe ingresar la confirmación de contraseña'],
+    },     
 }, { timestamps: true });
 
 userSchema.plugin(uniqueValidator);
